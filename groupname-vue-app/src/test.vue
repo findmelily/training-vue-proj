@@ -1,4 +1,4 @@
-<script setup>
+<script setup>test
 const msg ="<span class='italic'>Hello, v-text</span>";
 // const headingFont = 'text-4xl';
 const getToday=(x)=> {

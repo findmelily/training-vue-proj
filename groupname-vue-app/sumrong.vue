@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 import SortIcon from "./components/icons/Sort.vue";
 import SearchIcon from "./components/icons/SearchIcon.vue";
 import groups from "../data/groups.json";
@@ -41,11 +41,10 @@ const getRows = (n) => {
 
 const searchKeywords = ref("");
 // const search = () => {
-//   console.log('search...')
+// console.log('search...')
 //   searchGroupWorks(workGroups.value, searchKeywords.value)
 // }
-const filteredGroupWorks = computed(() => {
-  console.log("computed working...");
+const filteresGroupWorks = computed(() => {
   return searchGroupWorks(workGroups.value, searchKeywords.value);
 });
 </script>
@@ -82,6 +81,7 @@ const filteredGroupWorks = computed(() => {
             placeholder="type your keyword..."
             v-model="searchKeywords"
           />
+          <!-- @input="search" -->
         </div>
       </section>
       <!-- Modal Window -->
@@ -162,7 +162,7 @@ const filteredGroupWorks = computed(() => {
           </div>
         </div>
       </section>
-      <!-- Display -->  
+      <!-- Display -->
       <section v-show="addMode === false">
         <div class="grid grid-cols-12 gap-2 font-semibold text-xl pb-3">
           <div class="flex items-center">
@@ -179,7 +179,7 @@ const filteredGroupWorks = computed(() => {
           <h3 class="col-span-4">Members</h3>
         </div>
         <div
-          v-for="(group, index) in filteredGroupWorks"
+          v-for="(group, index) in filteresGroupWorks"
           :key="group.ID"
           class="grid grid-cols-12 gap-2"
           :class="index % 2 === 0 ? 'bg-slate-100' : ''"
