@@ -13,9 +13,9 @@ const score = 80;
     <section>
       <h1>{{ getToday(msg) }}</h1>
       <!-- v-text sample -->
-      <p v-text="msg.toUpperCase()"></p>
-      <p v-bind:class="headingFont">Hello, {{ msg.toUpperCase() }}, Goodbye</p>
-       <!-- v-html sample -->
+      <p vnd:class="headingFont">Hello, {{ msg.toUpperCase() }}, Goodbye</p>
+       <!-- -text="msg.toUpperCase()"></p>
+      <p v-biv-html sample -->
       <p v-html="msg"></p>
        <!-- v-bind sample -->
       <button class="bg-green-500 px-3 py-2 text-white rounded-lg disabled:bg-slate-500" v-if="isShow" v-bind:disabled="true">Preview</button>

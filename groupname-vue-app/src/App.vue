@@ -1,55 +1,89 @@
 <script setup>
-import SearchIcon from './components/icons/SearchIcon.vue'
-import groups from '../data/groups.json'
-// const bgGrey = "bg-slate-300";
-const bgGrey=(x)=> {
-  if(x % 2 === 0){
-    return "bg-slate-300"
+import { ref } from 'vue'
+const newGroup = ref({  section: '',  groupName: '',  repo: '',  members: []})
+const numOfMembers = ref(0)
+const saveNewGroup = () => {
+  console.log(newGroup.value)}
+
+const addNewMember = () => {
+  newGroup.value.members = []
+  for (let index = 0; index < numOfMembers.value; index++) {
+    newGroup.value.members.push({ projectCo: false , studentId: '', studentName: ''})}
   }
-  return ""
-}
 </script>
- 
 <template>
   <div class="w-full">
-    <header>
-      <section class="flex items-center p-2 bg-gradient-to-r from-purple-500 to-pink-500">
-        <img src="./assets/vue-icon.png" class="h-14" />
+    <div class="flex flex-col gap-2 bg-slate-100 p-3">
+      <div>
+        Section:
+        <select v-model="newGroup.section">
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+        {{ newGroup.section }}
+      </div>
+      <div>
+        Group Name:
+        <input
+          type="text"
+          v-model.trim="newGroup.groupName"
+          class="w-1/2 border border-gray-300 p-0.5 outline-none rounded-lg"
+        />
+        {{ newGroup.groupName }}
+      </div>
+      <div>
+        GitHub Repository:
+        <input
+          type="text"
+          v-model.trim="newGroup.repo"
+          class="w-1/2 border border-gray-300 p-0.5 outline-none rounded-lg"
+        />
+        {{ newGroup.repo }}
+      </div>
+      <div>
         <div>
-          <h1 class="text-white text-4xl">Creative Projects</h1>
-          <h2 class="italic text-indigo-200 text-xl">Play and Learn</h2>
+          Number of Members:
+          <input
+            @change="addNewMember"
+            id="input-number-members"
+            type="number"
+            min="0"
+            v-model.number="numOfMembers"
+            class="border border-gray-300 p-0.5 outline-none rounded-lg"
+          />
+          {{ numOfMembers }}
         </div>
-      </section>
-    </header>
-    <main class="p-5">
-      <section class="flex justify-end pt-2">
-        <div class="w-1/4 flex items-center gap-3 border border-gray-300 p-1 rounded-lg">
-            <SearchIcon/>
-            <input 
-            class="outline-none" type="text" placeholder="type your keyword...">
+        <div
+          v-for="(member, index) in newGroup.members"
+          :key="index"
+          class="flex flex-row gap-2 space-y-2 items-center"
+        >
+          <input type="checkbox" v-model="member.projectCo" />[Project
+          Coordinator] {{ member.projectCo }} Student Id:
+          <input
+            v-model.number="member.studentId"
+            type="text"
+            class="border border-gray-300 p-0.5 outline-none rounded-lg"
+          />{{ member.studentId }} Student Name:
+          <input
+            v-model.trim="member.studentName"
+            type="text"
+            class="border border-gray-300 p-0.5 outline-none rounded-lg"
+          />{{ member.studentName }}
         </div>
-     </section>
-     <section>
-      <div class="grid grid-cols-12 gap-2 font-semibold text-xl pb-3">
-        <h3>Section</h3>
-        <h3 class="col-span-2">Group Name</h3>
-        <h3 class="col-span-5">GitHub Repository</h3>
-        <h3 class="col-span-4">Members</h3>
+        <div class="flex gap-2">
+          <button
+            class="px-2 py-1 bg-green-600 text-white rounded-lg"
+            v-on:click="saveNewGroup"
+          >
+            OK
+          </button>
+          <button class="px-2 py-1 bg-red-600 text-white rounded-lg">
+            Cancel
+          </button>
+        </div>
       </div>
-      <div v-for="group in groups" :key="group.ID" class="grid grid-cols-12 gap-2" :class="group.ID%2===0 ? 'bg-slate-300' : ''">
-        <p>{{ group.section }}</p> 
-        <p class="col-span-2">{{ group.groupName }}</p>
-        <p class="col-span-5">{{ group.repo }}</p>
-        <ul class="col-span-4 list-disc list-inside">
-          <li v-for="{studentId,studentName} in group.members" :key="studentId">{{`${studentId}  ${studentName}` }}</li>
-        </ul>
-      </div>
-     </section>
-  
-    </main>
+    </div>
   </div>
 </template>
- 
-<style scoped>
-
-</style>
+<style scoped></style>
